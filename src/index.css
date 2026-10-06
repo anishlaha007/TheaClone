@@ -1,0 +1,111 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #fbfaf6;
+  --surface: #ffffff;
+  --surface-2: #f3f1ea;
+  --ink: #16161d;
+  --muted: #5d5f6b;
+  --line: #e6e3d8;
+  --brand: #0e7c66;
+  --brand-ink: #ffffff;
+  --brand-soft: #dff2ec;
+  --citrus: #f2b33d;
+  --citrus-soft: #fdf1d6;
+  --good: #23935f;
+  --good-soft: #dcf3e7;
+  --bad: #d9414a;
+  --bad-soft: #fbe3e4;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0f1114;
+  --surface: #171a1f;
+  --surface-2: #1f232a;
+  --ink: #eef0f3;
+  --muted: #9aa0ab;
+  --line: #2a2f37;
+  --brand: #2bb394;
+  --brand-ink: #071512;
+  --brand-soft: #123b33;
+  --citrus: #f5c45e;
+  --citrus-soft: #3a3020;
+  --good: #3ccb88;
+  --good-soft: #143826;
+  --bad: #f06a71;
+  --bad-soft: #3d1b1e;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-soft: var(--brand-soft);
+  --color-citrus: var(--citrus);
+  --color-citrus-soft: var(--citrus-soft);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+html, body, #root { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 3D flip for flashcards */
+.flip-scene { perspective: 1400px; }
+.flip-card { transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(.2,.8,.2,1); }
+.flip-card.is-flipped { transform: rotateY(180deg); }
+.flip-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.flip-back { transform: rotateY(180deg); }
+
+/* Markdown content */
+.prose-aeht { line-height: 1.7; }
+.prose-aeht h1 { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; margin: 1.6rem 0 0.8rem; line-height: 1.2; }
+.prose-aeht h2 { font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; margin: 1.6rem 0 0.6rem; line-height: 1.25; }
+.prose-aeht h3 { font-weight: 650; font-size: 1.15rem; margin: 1.3rem 0 0.5rem; }
+.prose-aeht p { margin: 0.6rem 0; }
+.prose-aeht ul { list-style: disc; padding-left: 1.4rem; margin: 0.5rem 0; }
+.prose-aeht ol { list-style: decimal; padding-left: 1.4rem; margin: 0.5rem 0; }
+.prose-aeht li { margin: 0.25rem 0; }
+.prose-aeht strong { font-weight: 650; }
+.prose-aeht a { color: var(--brand); text-decoration: underline; }
+.prose-aeht code { background: var(--surface-2); padding: 0.1rem 0.35rem; border-radius: 0.35rem; font-size: 0.9em; }
+.prose-aeht pre { background: var(--surface-2); padding: 0.9rem 1rem; border-radius: 0.75rem; overflow-x: auto; margin: 0.8rem 0; }
+.prose-aeht pre code { background: none; padding: 0; }
+.prose-aeht blockquote { border-left: 4px solid var(--citrus); background: var(--citrus-soft); padding: 0.6rem 1rem; border-radius: 0 0.6rem 0.6rem 0; margin: 0.8rem 0; }
+.prose-aeht table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.95em; display: block; overflow-x: auto; }
+.prose-aeht th, .prose-aeht td { border: 1px solid var(--line); padding: 0.45rem 0.65rem; text-align: left; }
+.prose-aeht th { background: var(--surface-2); font-weight: 650; }
+.prose-aeht hr { border-color: var(--line); margin: 1.4rem 0; }
+.prose-aeht > :first-child { margin-top: 0; }
+
+@keyframes pop { 0% { transform: scale(.92); opacity: 0 } 100% { transform: scale(1); opacity: 1 } }
+.anim-pop { animation: pop .22s ease-out both; }
+@keyframes shake { 0%,100% { transform: translateX(0) } 20%,60% { transform: translateX(-6px) } 40%,80% { transform: translateX(6px) } }
+.anim-shake { animation: shake .35s ease-in-out; }
+@keyframes drop { 0% { transform: translateY(-180px); opacity: .2 } 80% { transform: translateY(4px) } 100% { transform: translateY(0); opacity: 1 } }
+.anim-drop { animation: drop .45s cubic-bezier(.3,1.4,.6,1) both; }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+  .print-area { box-shadow: none !important; border: none !important; padding: 0 !important; }
+}
